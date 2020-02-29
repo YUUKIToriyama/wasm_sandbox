@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			WebAssembly.instantiateStreaming(fetch("./sample1.wasm", {"headers": {"Content-Type": "application/wasm"}})).then(wasm => {
+				var add_func = wasm.instance.exports.add;
+				var result = add_func(100, 31);
+				console.log(result);
+			}).catch(err => {
+				console.log(err);
+			})
+		</script>			
+	</body>
+</html>
