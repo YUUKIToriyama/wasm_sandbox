@@ -8,11 +8,12 @@
 	<body>
 		<canvas id="canvas" width="150" height="150"></canvas>
 		<script type="module">
-			import init, {display, say_hello, draw} from "./pkg/wasm_sandbox.js";
+			import init, {display, say_hello, draw, print_fibo} from "./pkg/wasm_sandbox.js";
 			init().then(() => {
 				display();
 				say_hello("YUUKI");
 				draw();
+				print_fibo(10);
 			});
 		</script>
 	</body>

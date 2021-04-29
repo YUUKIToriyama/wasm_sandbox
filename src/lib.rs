@@ -35,3 +35,11 @@ pub fn draw() {
     context.arc(75.0, 75.0, 50.0, 0.0, f64::consts::PI * 2.0).unwrap();
     context.stroke();
 }
+
+mod fibonacci;
+#[wasm_bindgen]
+pub fn print_fibo(n: i32) {
+    for i in 0..n {
+        console::log_1(&format!("{}", fibonacci::fibonacci(i)).into());
+    }
+}
