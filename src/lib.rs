@@ -1,11 +1,39 @@
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
-extern {
-    pub fn alert(s: &str);
+#[wasm_bindgen(start)]
+pub fn run() {
+    bare_bones();
+    using_a_macro();
+    using_web_sys();
 }
 
 #[wasm_bindgen]
-pub fn greet(name: &str) {
-    alert(&format!("Hello, {}", name));
+extern "C" {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn log_u32(a: u32);
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn log_many(a: &str, b: &str);
+}
+
+fn bare_bones() {
+    log("Hello world");
+    log_u32(42);
+    log_many("logging", "many");
+}
+
+macro_rules! console_log {
+    ($($t:tt)*) => (log(&format_args!($($t)*).to_string()))
+}
+
+fn using_a_macro() {
+    console_log!("Hello {}", "world");
+    console_log!("hogehoge");
+    console_log!("1 + 1 = {}", 1 + 1);
+}
+
+fn using_web_sys() {
+    use web_sys::console;
+    console::log_1(&"Hello using web-sys".into());
 }

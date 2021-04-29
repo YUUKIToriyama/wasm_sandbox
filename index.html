@@ -7,9 +7,9 @@
 	</head>
 	<body>
 		<script type="module">
-			import init, {greet} from "./pkg/wasm_sandbox.js";
+			import init, {run} from "./pkg/wasm_sandbox.js";
 			init().then(() => {
-				greet("WebAssembly");
+				run();
 			});
 		</script>
 	</body>
