@@ -8,15 +8,21 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [dependencies]
+js-sys = "0.3.50"
 wasm-bindgen = "0.2"
 
 [dependencies.web-sys]
 version = "0.3.50"
 features = [
+	# DOM操作に必要
 	"Document",
 	"Element",
 	"HtmlElement",
 	"Node",
 	"Window",
+	# Canvas操作に必要
+	'CanvasRenderingContext2d',
+	'HtmlCanvasElement',
+	# console.log()を用いるために必要
 	"console"
 ]
