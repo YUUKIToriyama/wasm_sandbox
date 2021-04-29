@@ -7,9 +7,10 @@
 	</head>
 	<body>
 		<script type="module">
-			import init, {run} from "./pkg/wasm_sandbox.js";
+			import init, {display, say_hello} from "./pkg/wasm_sandbox.js";
 			init().then(() => {
-				run();
+				display();
+				say_hello("YUUKI");
 			});
 		</script>
 	</body>

@@ -1,39 +1,19 @@
 use wasm_bindgen::prelude::*;
-
-#[wasm_bindgen(start)]
-pub fn run() {
-    bare_bones();
-    using_a_macro();
-    using_web_sys();
-}
+use web_sys::console;
 
 #[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = console)]
-    fn log(s: &str);
-    #[wasm_bindgen(js_namespace = console, js_name = log)]
-    fn log_u32(a: u32);
-    #[wasm_bindgen(js_namespace = console, js_name = log)]
-    fn log_many(a: &str, b: &str);
+pub fn say_hello(s: &str) {
+    console::log_1(&format!("Hello, {}", &s).into());
 }
+#[wasm_bindgen]
+pub fn display() -> Result<(), JsValue> {
+    let window = web_sys::window().expect("グローバルなwindowオブジェクトが存在しません");
+    let document = window.document().expect("documentを取得できません");
+    let body = document.body().expect("bodyが取得できません");
 
-fn bare_bones() {
-    log("Hello world");
-    log_u32(42);
-    log_many("logging", "many");
-}
+    let val = document.create_element("p")?;
+    val.set_text_content(Some("Hello world from Rust!"));
+    body.append_child(&val)?;
 
-macro_rules! console_log {
-    ($($t:tt)*) => (log(&format_args!($($t)*).to_string()))
-}
-
-fn using_a_macro() {
-    console_log!("Hello {}", "world");
-    console_log!("hogehoge");
-    console_log!("1 + 1 = {}", 1 + 1);
-}
-
-fn using_web_sys() {
-    use web_sys::console;
-    console::log_1(&"Hello using web-sys".into());
+    Ok(())
 }
