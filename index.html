@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>wasm_sandbox example</title>
+	</head>
+	<body>
+		<canvas id="canvas" width="150" height="150"></canvas>
+		<script type="module">
+			import init, {display, say_hello, draw, print_fibo} from "./pkg/wasm_sandbox.js";
+			init().then(() => {
+				display();
+				say_hello("YUUKI");
+				draw();
+				print_fibo(10);
+			});
+		</script>
+	</body>
+</html>
