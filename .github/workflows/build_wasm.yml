@@ -19,9 +19,12 @@ jobs:
     - name: Install wasm-pack
       run: cargo install wasm-pack
     - name: Compile code with wasm-pack
-      run: wasm-pack build --target web
+      run: |
+        wasm-pack build --target web
+        mkdir build
+        cp -r pkg index.html build
     - name: deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        publish_dir: ./
+        publish_dir: ./build
